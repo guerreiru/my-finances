@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import { useUser } from "@/hooks/useUser";
+import { useEffect, useState } from "react";
 
 interface UserData {
   displayName: string;
@@ -10,20 +10,8 @@ interface UserData {
   email: string;
 }
 
-export default function Header() {
-  const [user, setUser] = useState<UserData | null>(null);
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      const parsedUser = JSON.parse(storedUser);
-      setUser({
-        displayName: parsedUser.displayName,
-        photoURL: parsedUser.photoURL,
-        email: parsedUser.email,
-      });
-    }
-  }, []);
+export function Header() {
+  const user = useUser();
 
   const handleLogout = () => {
     localStorage.removeItem("user");
