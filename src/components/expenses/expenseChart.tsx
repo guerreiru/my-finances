@@ -5,7 +5,13 @@ import { Button } from "@/components/ui/button"; // use seu botão com variants
 
 const COLORS = ["#3B82F6", "#10B981", "#F59E0B", "#EF4444", "#6366F1"];
 
-export function ExpenseChart({ data }: any) {
+type ExpenseChartProps = {
+  data: {
+    category: string;
+    amount: number;
+  }[];
+};
+export function ExpenseChart({ data }: ExpenseChartProps) {
   const [showChart, setShowChart] = useState(true);
 
   return (
@@ -23,27 +29,30 @@ export function ExpenseChart({ data }: any) {
 
       {showChart && (
         <div className="mt-2">
-          <ResponsiveContainer width="100%" height={300}>
-            <PieChart>
-              <Pie
-                data={data}
-                dataKey="amount"
-                nameKey="category"
-                cx="50%"
-                cy="50%"
-                outerRadius={100}
-                label
-              >
-                {data.map((_: any, index: number) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={COLORS[index % COLORS.length]}
-                  />
-                ))}
-              </Pie>
-              <Tooltip />
-            </PieChart>
-          </ResponsiveContainer>
+          {!data.length && <p>Cadastre uma despesa para gerar o gráfico</p>}
+          {data.length > 0 && (
+            <ResponsiveContainer width="100%" height={300}>
+              <PieChart>
+                <Pie
+                  data={data}
+                  dataKey="amount"
+                  nameKey="category"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={100}
+                  label
+                >
+                  {data.map((_: any, index: number) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={COLORS[index % COLORS.length]}
+                    />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+          )}
         </div>
       )}
     </Card>

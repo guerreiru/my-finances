@@ -14,8 +14,10 @@ import { ExpenseForm } from "@/components/expenses/expenseForm";
 import { ExpenseList } from "@/components/expenses/expenseList";
 import { LoadingPlaceholder } from "@/components/expenses/loadingPlaceholder";
 
-import { Expense } from "@/types/Expense";
 import { Header } from "@/components/ui/header";
+import { Expense } from "@/types/Expense";
+import uuid from "react-native-uuid";
+import { ConfirmModal } from "@/components/ui/confirmDialog";
 
 const TODAY = new Date().toISOString().split("T")[0];
 const DEFAULT_FORM = {
@@ -38,6 +40,9 @@ export default function ExpenseManagerPage() {
     category: ALL_CATEGORIES,
   });
 
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [expenseToDelete, setExpenseToDelete] = useState<string | null>(null);
+
   const addExpense = async () => {
     if (!user?.uid) return;
 
@@ -56,8 +61,11 @@ export default function ExpenseManagerPage() {
     );
     const startDate = new Date(formData.date);
 
+    const id = uuid.v4();
+
     const newExpenses: Expense[] = Array.from({ length: installments }).map(
       (_, i) => ({
+        id,
         name:
           formData.name +
           (installments > 1 ? ` (${i + 1}/${installments})` : ""),
@@ -71,6 +79,19 @@ export default function ExpenseManagerPage() {
     await saveExpenses([...expenses, ...newExpenses]);
     setFormData(DEFAULT_FORM);
     setAdding(false);
+  };
+
+  const handleDeleteRequest = (id: string) => {
+    setExpenseToDelete(id);
+    setConfirmOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!expenseToDelete) return;
+    const remainingExpenses = expenses.filter((e) => e.id !== expenseToDelete);
+    await saveExpenses(remainingExpenses);
+    setConfirmOpen(false);
+    setExpenseToDelete(null);
   };
 
   const filteredExpenses = expenses.filter((e) => {
@@ -120,9 +141,22 @@ export default function ExpenseManagerPage() {
       ) : (
         <>
           <ExpenseChart data={chartData} />
-          <ExpenseList expensesByMonth={groupByMonth(filteredExpenses)} />
+          <ExpenseList
+            expensesByMonth={groupByMonth(filteredExpenses)}
+            onDelete={handleDeleteRequest}
+          />
         </>
       )}
+
+      <ConfirmModal
+        open={confirmOpen}
+        onClose={() => setConfirmOpen(false)}
+        onConfirm={handleConfirmDelete}
+        title="Excluir despesa"
+        description="Deseja realmente excluir essa despesa e todas as parcelas?"
+        confirmText="Sim, excluir"
+        cancelText="Cancelar"
+      />
     </main>
   );
 }

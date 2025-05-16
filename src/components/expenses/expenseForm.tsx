@@ -26,7 +26,7 @@ export function ExpenseForm({
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           id="name"
-          label="name"
+          label="Nome"
         />
         <Input
           type="number"
