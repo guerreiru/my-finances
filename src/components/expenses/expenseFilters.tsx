@@ -9,8 +9,8 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
+import { categories } from "@/constants";
 
-const categories = ["Alimentação", "Transporte", "Moradia", "Lazer", "Outros"];
 const allCategoriesValue = "__all__";
 const TODAY = new Date().toISOString().split("T")[0];
 
