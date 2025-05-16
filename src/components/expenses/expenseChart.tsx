@@ -1,7 +1,15 @@
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
-import { Button } from "@/components/ui/button"; // use seu botão com variants
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  Cell,
+} from "recharts";
+import { Button } from "@/components/ui/button";
 
 const COLORS = ["#3B82F6", "#10B981", "#F59E0B", "#EF4444", "#6366F1"];
 
@@ -11,6 +19,7 @@ type ExpenseChartProps = {
     amount: number;
   }[];
 };
+
 export function ExpenseChart({ data }: ExpenseChartProps) {
   const [showChart, setShowChart] = useState(true);
 
@@ -32,25 +41,19 @@ export function ExpenseChart({ data }: ExpenseChartProps) {
           {!data.length && <p>Cadastre uma despesa para gerar o gráfico</p>}
           {data.length > 0 && (
             <ResponsiveContainer width="100%" height={300}>
-              <PieChart>
-                <Pie
-                  data={data}
-                  dataKey="amount"
-                  nameKey="category"
-                  cx="50%"
-                  cy="50%"
-                  outerRadius={100}
-                  label
-                >
-                  {data.map((_: any, index: number) => (
+              <BarChart data={data}>
+                <XAxis dataKey="category" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="amount">
+                  {data.map((_, index) => (
                     <Cell
                       key={`cell-${index}`}
                       fill={COLORS[index % COLORS.length]}
                     />
                   ))}
-                </Pie>
-                <Tooltip />
-              </PieChart>
+                </Bar>
+              </BarChart>
             </ResponsiveContainer>
           )}
         </div>
