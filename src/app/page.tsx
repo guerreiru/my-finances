@@ -126,30 +126,48 @@ export default function ExpenseManagerPage() {
   return (
     <main className="max-w-4xl mx-auto py-10 px-4">
       <Header />
+
       <h1 className="text-2xl md:text-3xl font-bold mb-6">
         Gerenciador de Despesas
       </h1>
 
-      <ExpenseForm
-        formData={formData}
-        setFormData={setFormData}
-        addExpense={addExpense}
-        adding={adding}
-      />
+      <section>
+        <ExpenseForm
+          formData={formData}
+          setFormData={setFormData}
+          addExpense={addExpense}
+          adding={adding}
+        />
+      </section>
 
-      <ExpenseFilters filters={filters} setFilters={setFilters} />
+      <hr className="my-10 border-gray-300" />
 
-      {isLoading ? (
-        <LoadingPlaceholder />
-      ) : (
-        <>
-          <ExpenseChart data={chartData} />
-          <ExpenseList
-            expensesByMonth={groupByMonth(filteredExpenses)}
-            onDelete={handleDeleteRequest}
-          />
-        </>
-      )}
+      <section>
+        <ExpenseFilters filters={filters} setFilters={setFilters} />
+      </section>
+
+      <div className="mt-8">
+        {isLoading ? (
+          <LoadingPlaceholder />
+        ) : (
+          <>
+            <section className="mb-8">
+              <h2 className="text-xl font-semibold mb-4">
+                Resumo por Categoria
+              </h2>
+              <ExpenseChart data={chartData} />
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold mb-4">Despesas por Mês</h2>
+              <ExpenseList
+                expensesByMonth={groupByMonth(filteredExpenses)}
+                onDelete={handleDeleteRequest}
+              />
+            </section>
+          </>
+        )}
+      </div>
 
       <ConfirmModal
         open={confirmOpen}
