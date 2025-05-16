@@ -22,7 +22,7 @@ export function ExpenseList({ expensesByMonth, onDelete }: ExpenseListProps) {
           return (
             <Card key={month} className="mb-4 p-4">
               <h3 className="font-bold text-lg mb-1 capitalize">
-                {format(new Date(month + "-01"), "MMMM yyyy", { locale: ptBR })}
+                {format(new Date(month + -1), "MMMM yyyy", { locale: ptBR })}
               </h3>
               <p className="text-sm text-muted-foreground mb-2">
                 Total: {formatCurrencyBR(total)}
