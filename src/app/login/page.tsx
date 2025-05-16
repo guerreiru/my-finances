@@ -62,7 +62,7 @@ export default function Login() {
           <Button
             onClick={handleGoogleLogin}
             disabled={loading}
-            className="w-full max-w-xs flex gap-2 items-center"
+            className="w-full max-w-xs flex gap-2 items-center justify-center"
             variant="outline"
           >
             <FcGoogle className="text-xl" />
