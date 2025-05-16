@@ -34,7 +34,7 @@ export default function Login() {
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-white flex items-center justify-center px-4">
       <div className="max-w-4xl w-full bg-white rounded-2xl shadow-lg grid grid-cols-1 md:grid-cols-2 overflow-hidden">
         {/* Seção de informações */}
-        <div className="p-8 bg-indigo-100 flex flex-col justify-center">
+        <div className="p-4 md:p-8 bg-indigo-100 flex flex-col justify-center">
           <h1 className="text-3xl font-bold text-indigo-900 mb-4">
             Bem-vindo ao minhas finanças
           </h1>
@@ -54,7 +54,7 @@ export default function Login() {
         </div>
 
         {/* Seção de login */}
-        <div className="p-8 flex flex-col justify-center items-center bg-white">
+        <div className="p-4 md:p-8 flex flex-col justify-center items-center bg-white">
           <h2 className="text-2xl font-semibold mb-4 text-gray-800">
             Acesse sua conta
           </h2>
