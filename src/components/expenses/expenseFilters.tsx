@@ -39,20 +39,22 @@ export function ExpenseFilters({ filters, setFilters }: any) {
             value={filters.start}
             onChange={(e) => setFilters({ ...filters, start: e.target.value })}
             id="start-date"
-            placeholder="Data início"
+            label="Data início"
           />
           <Input
             type="date"
             value={filters.start && !filters.end ? TODAY : filters.end}
             onChange={(e) => setFilters({ ...filters, end: e.target.value })}
             id="end-date"
-            placeholder="Data fim"
+            label="Data fim"
           />
           <Select
             value={filters.category}
             onChange={({ target }) =>
               setFilters({ ...filters, category: target.value })
             }
+            id="filter-category"
+            label="Categoria"
           >
             <SelectTrigger>
               {filters.category === allCategoriesValue
