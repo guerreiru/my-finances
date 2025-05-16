@@ -23,7 +23,7 @@ const TODAY = new Date().toISOString().split("T")[0];
 const DEFAULT_FORM = {
   name: "",
   amount: "",
-  category: "",
+  category: "Alimentação",
   installments: "1",
   date: TODAY,
 };
@@ -48,6 +48,7 @@ export default function ExpenseManagerPage() {
 
     const totalAmount = parseFloat(formData.amount);
     const installments = parseInt(formData.installments, 10);
+
     if (
       !formData.name ||
       isNaN(totalAmount) ||
