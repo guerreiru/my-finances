@@ -9,8 +9,7 @@ import {
   SelectTrigger,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-
-const categories = ["Alimentação", "Transporte", "Moradia", "Lazer", "Outros"];
+import { categories } from "@/constants";
 
 export function ExpenseForm({
   formData,
