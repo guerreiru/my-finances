@@ -125,7 +125,9 @@ export default function ExpenseManagerPage() {
   return (
     <main className="max-w-4xl mx-auto py-10 px-4">
       <Header />
-      <h1 className="text-3xl font-bold mb-6">Gerenciador de Despesas</h1>
+      <h1 className="text-2xl md:text-3xl font-bold mb-6">
+        Gerenciador de Despesas
+      </h1>
 
       <ExpenseForm
         formData={formData}
